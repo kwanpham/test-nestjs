@@ -1,11 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthModule } from './auth/auth.module';
-import { ServiceModule } from './service/service.module';
-import { AuthController } from './controller/auth.controller';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ControllerModule } from './controller/controller.module';
+import * as process from 'process';
 
 @Module({
   imports: [
@@ -13,19 +11,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: '103.160.89.20',
-      port: 3306,
-      username: 'root',
-      password: 'lilama1996',
-      database: 'bank',
-      autoLoadEntities: true,
+      type: 'mariadb',
+      host: process.env.DATABASE_HOST,
+      port: parseInt(process.env.DATABASE_PORT, 10),
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE_NAME,
+      // autoLoadEntities: true,
+      entities: [process.env.DATABASE_ENTITIES],
       synchronize: false,
     }),
-    AuthModule,
-    ServiceModule,
+    ControllerModule,
   ],
-  controllers: [AppController, AuthController],
+  controllers: [],
   providers: [AppService],
 })
 export class AppModule {}
