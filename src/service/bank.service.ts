@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { EntityManager } from 'typeorm';
 import { AchBank } from '../entity/ach_bank.entity';
-import {AchBankBin} from "../entity/ach_bank_bin.entity";
+import { AchBankBin } from '../entity/ach_bank_bin.entity';
 
 // This should be a real class/interface representing a user entity
 @Injectable()
